@@ -1,14 +1,15 @@
 import os
 import xlsxwriter
 from datetime import datetime
-IMPORT_DIR="/home/flmmartins/Local/Downloads/"
+
 
 def read_bank_line(line):
     columns = line.strip("\r\n").split('\t')
     return {
         "date": datetime.strptime(columns[2], '%Y%m%d'),
         "amount": float(columns[6].replace(",", ".")),
-        "description": "".join(columns[7:])}
+        "description": "".join(columns[7:])[30:100]
+    }
 
 
 def create_xls(file, content):
@@ -41,6 +42,7 @@ def convert_file(file):
 
 
 if __name__ == "__main__":
+    IMPORT_DIR = "/home/flmmartins/Local/Downloads/"
     for file in os.listdir(IMPORT_DIR):
         if file.endswith(".TAB"):
             convert_file(IMPORT_DIR+file)
