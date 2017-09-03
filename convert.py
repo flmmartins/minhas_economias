@@ -1,7 +1,7 @@
 import os
 import xlsxwriter
 from datetime import datetime
-
+IMPORT_DIR="/home/flmmartins/Local/Downloads/"
 
 def read_bank_line(line):
     columns = line.strip("\r\n").split('\t')
@@ -41,6 +41,6 @@ def convert_file(file):
 
 
 if __name__ == "__main__":
-    for file in os.listdir("./"):
-        if file.endswith(".txt"):
-            convert_file(file)
+    for file in os.listdir(IMPORT_DIR):
+        if file.endswith(".TAB"):
+            convert_file(IMPORT_DIR+file)
