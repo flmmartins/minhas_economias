@@ -23,11 +23,11 @@ def create_xls(file, content):
     workbook = xlsxwriter.Workbook(file + '.xlsx')
     worksheet = workbook.add_worksheet()
     money_format = workbook.add_format({
-        'num_format': '$#.##'})
+        'num_format': '#.##'})
     date_format = workbook.add_format({
         'num_format': 'dd/mm/yyyy'})
-    worksheet.write('A1', 'Data')
-    worksheet.write('B1', 'Historico')
+    worksheet.write('A1', 'Data Ocorrencia')
+    worksheet.write('B1', 'Descricao')
     worksheet.write('C1', 'Valor')
     for line in range(len(content)):
         worksheet.write_datetime(line+1, 0,
