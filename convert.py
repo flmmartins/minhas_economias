@@ -1,6 +1,13 @@
 import os
 import xlsxwriter
 from datetime import datetime
+import pdb
+import json
+import unicodedata
+
+
+def strip_accents(s):
+    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
 
 
 def read_bank_line(line):
@@ -26,8 +33,7 @@ def create_xls(file, content):
         worksheet.write_datetime(line+1, 0,
                                  content[line]['date'],
                                  date_format)
-        worksheet.write(line+1, 1,
-                        content[line]['description'])
+        worksheet.write(line+1, 1, strip_accents(content[line]['description'].decode('unicode-escape')))
         worksheet.write(line+1, 2,
                         content[line]['amount'],
                         money_format)
