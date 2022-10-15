@@ -1,4 +1,5 @@
 import os
+import sys
 import xlsxwriter
 from datetime import datetime
 import pdb
@@ -33,7 +34,7 @@ def create_xls(file, content):
         worksheet.write_datetime(line+1, 0,
                                  content[line]['date'],
                                  date_format)
-        worksheet.write(line+1, 1, strip_accents(content[line]['description'].decode('unicode-escape')))
+        worksheet.write(line+1, 1, strip_accents(content[line]['description'].encode().decode('unicode-escape')))
         worksheet.write(line+1, 2,
                         content[line]['amount'],
                         money_format)
@@ -48,7 +49,10 @@ def convert_file(file):
 
 
 if __name__ == "__main__":
-    IMPORT_DIR = "/home/flmmartins/Local/Downloads/"
-    for file in os.listdir(IMPORT_DIR):
-        if file.endswith(".TAB"):
-            convert_file(IMPORT_DIR+file)
+    IMPORT_DIR = os.getenv("IMPORT_DIR")
+    if not IMPORT_DIR:
+        sys.exit("Cannot scan for bank files because IMPORT_DIR does not exist")
+    else:
+        for file in os.listdir(IMPORT_DIR):
+            if file.endswith(".TAB"):
+                convert_file(IMPORT_DIR+file)
