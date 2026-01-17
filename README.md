@@ -1,19 +1,44 @@
 # How to run
 
-```
-pipenv install
-```
+Instal python 3.11
 
-You might need to change the env variable in .env file to scan the directory with files. Running the command below should load .env file:
+Installing with pyenv:
 
 ```
-pipenv shell
+pyenv install 3.11
+pyenv locall 3.11
+```
+
+Setup virtual environment:
+
+```
+pyenv virtualenv minhaseconomias
+pyenv activate minhaseconomias
+```
+
+Install
+
+```
+pip install -r requirements.txt
 ```
 
 Run
 
 ```
 python3 convert.py
+```
+
+# How to generate requirements.txt
+
+
+```
+pip install pip-tools
+```
+
+Edit requirements.in and then generate requirements.txt
+
+```
+pip-compile
 ```
 
 # How to upgrade python
